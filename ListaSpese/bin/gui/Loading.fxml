@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.StackPane?>
+
+<StackPane fx:id="rootPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="369.0" prefWidth="691.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.LoadingController">
+   <children>
+      <ImageView fitHeight="435.0" fitWidth="690.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../resources/Spese.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="111.0" fitWidth="142.0" pickOnBounds="true" preserveRatio="true" StackPane.alignment="BOTTOM_CENTER">
+         <image>
+            <Image url="@../../resources/loading.gif" />
+         </image>
+      </ImageView>
+   </children>
+</StackPane>

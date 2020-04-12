@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.RadioButton?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.ToggleGroup?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="755.0" prefWidth="1300.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.SpeseController">
+   <children>
+      <HBox alignment="CENTER" prefHeight="112.0" prefWidth="1300.0" spacing="20.0">
+         <children>
+            <HBox prefHeight="128.0" prefWidth="490.0" spacing="10.0">
+               <children>
+                  <ImageView fitHeight="117.0" fitWidth="129.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../resources/gestionespese.png" />
+                     </image>
+                  </ImageView>
+                  <VBox prefHeight="128.0" prefWidth="323.0">
+                     <children>
+                        <Label prefHeight="50.0" prefWidth="299.0" text="Inserisci il tuo saldo iniziale" textFill="#801818">
+                           <font>
+                              <Font size="24.0" />
+                           </font>
+                        </Label>
+                        <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="10.0">
+                           <children>
+                              <DatePicker fx:id="dataSaldoIniziale" prefHeight="30.0" prefWidth="167.0" promptText="Data..." />
+                              <TextField fx:id="importoSaldoIniziale" prefHeight="31.0" prefWidth="154.0" promptText="Importo..." />
+                           </children>
+                        </HBox>
+                        <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+                           <children>
+                              <RadioButton fx:id="contanti" mnemonicParsing="false" onAction="#aggiornaAttuale" prefHeight="21.0" prefWidth="96.0" selected="true" text="Contanti">
+                                 <toggleGroup>
+                                    <ToggleGroup fx:id="circuito" />
+                                 </toggleGroup>
+                              </RadioButton>
+                              <RadioButton fx:id="bancomat" mnemonicParsing="false" onAction="#aggiornaAttuale" prefHeight="21.0" prefWidth="102.0" text="Bancomat" toggleGroup="$circuito" />
+                              <RadioButton fx:id="carta" mnemonicParsing="false" onAction="#aggiornaAttuale" text="Carta" toggleGroup="$circuito" />
+                           </children>
+                           <padding>
+                              <Insets top="5.0" />
+                           </padding>
+                        </HBox>
+                        <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+                           <children>
+                              <Button fx:id="salvaSaldoIniziale" mnemonicParsing="false" onAction="#salvaSaldoIniziale" prefHeight="31.0" prefWidth="75.0" text="Salva" />
+                           </children>
+                           <padding>
+                              <Insets top="5.0" />
+                           </padding>
+                        </HBox>
+                     </children>
+                  </VBox>
+               </children>
+               <HBox.margin>
+                  <Insets bottom="5.0" top="5.0" />
+               </HBox.margin>
+               <padding>
+                  <Insets left="20.0" />
+               </padding>
+            </HBox>
+            <VBox prefHeight="138.0" prefWidth="254.0">
+               <children>
+                  <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="53.0" prefWidth="198.0" text="Gestione Spese" textFill="#831e1e">
+                     <font>
+                        <Font name="Bernard MT Condensed" size="34.0" />
+                     </font>
+                     <padding>
+                        <Insets bottom="5.0" top="5.0" />
+                     </padding>
+                  </Label>
+                  <Label prefHeight="37.0" prefWidth="200.0" text="Saldo Iniziale: " textFill="#359e6d">
+                     <font>
+                        <Font size="24.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="saldoInizialeAttuale" prefHeight="67.0" prefWidth="219.0" textFill="#159076">
+                     <font>
+                        <Font size="14.0" />
+                     </font></Label>
+               </children>
+            </VBox>
+            <HBox alignment="CENTER" prefHeight="117.0" prefWidth="592.0">
+               <children>
+                  <VBox prefHeight="117.0" prefWidth="570.0">
+                     <children>
+                        <HBox prefHeight="117.0" prefWidth="566.0" spacing="10.0">
+                           <children>
+                              <Label prefHeight="47.0" prefWidth="229.0" text="SALDO ATTUALE" textFill="#33d72b">
+                                 <font>
+                                    <Font size="31.0" />
+                                 </font>
+                              </Label>
+                              <Label fx:id="saldoAttuale" prefHeight="46.0" prefWidth="159.0" text="0 €" textFill="#33d72b">
+                                 <font>
+                                    <Font size="31.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                        </HBox>
+                        <HBox prefHeight="131.0" prefWidth="566.0" spacing="10.0">
+                           <children>
+                              <Label prefHeight="75.0" prefWidth="160.0" text="Visualizza saldo al " textFill="#3a9030">
+                                 <font>
+                                    <Font size="19.0" />
+                                 </font>
+                              </Label>
+                              <DatePicker fx:id="saldoAtDay" prefHeight="51.0" prefWidth="108.0" promptText="Data...">
+                                 <HBox.margin>
+                                    <Insets top="10.0" />
+                                 </HBox.margin>
+                              </DatePicker>
+                              <Label fx:id="saldoAtDayLabel" contentDisplay="CENTER" prefHeight="76.0" prefWidth="271.0" textFill="#32a85c" wrapText="true">
+                                 <padding>
+                                    <Insets left="10.0" />
+                                 </padding>
+                                 <font>
+                                    <Font size="16.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                        </HBox>
+                     </children>
+                  </VBox>
+               </children>
+            </HBox>
+         </children>
+         <padding>
+            <Insets left="10.0" />
+         </padding></HBox>
+      <VBox layoutY="137.0" prefHeight="615.0" prefWidth="155.0" spacing="20.0">
+         <opaqueInsets>
+            <Insets />
+         </opaqueInsets>
+         <padding>
+            <Insets left="5.0" right="5.0" />
+         </padding>
+         <children>
+            <Button fx:id="inserisci" mnemonicParsing="false" onAction="#inserisciMovimento" prefHeight="66.0" prefWidth="141.0" text="Inserisci">
+               <font>
+                  <Font name="Calibri Light" size="19.0" />
+               </font>
+            </Button>
+            <Button fx:id="elimina" layoutX="15.0" layoutY="10.0" mnemonicParsing="false" onAction="#eliminaMovimento" prefHeight="63.0" prefWidth="141.0" text="Elimina">
+               <font>
+                  <Font name="Calibri Light" size="19.0" />
+               </font>
+            </Button>
+            <Button fx:id="graficoSpese" layoutX="15.0" layoutY="93.0" mnemonicParsing="false" onAction="#graficoSpese" prefHeight="63.0" prefWidth="143.0" text="Grafico Spese">
+               <font>
+                  <Font name="Calibri Light" size="19.0" />
+               </font>
+            </Button>
+            <Label prefHeight="21.0" prefWidth="129.0" text="Filtra per giorno" />
+            <DatePicker fx:id="filtraPerGiorno" prefHeight="34.0" prefWidth="143.0" promptText="Giorno..." />
+            <Label text="Filtra per settimana" />
+            <DatePicker fx:id="filtraPerSettimana" prefHeight="32.0" prefWidth="143.0" promptText="Settimana..." />
+            <Label text="Filtra per mese" />
+            <DatePicker fx:id="filtraPerMese" promptText="Mese..." />
+            <Button fx:id="visualizzaTutti" mnemonicParsing="false" onAction="#visualizzaTutti" prefHeight="67.0" prefWidth="142.0" text="Visualizza Tutto" />
+         </children>
+      </VBox>
+      <TableView fx:id="speseTable" layoutX="155.0" layoutY="137.0" prefHeight="609.0" prefWidth="1138.0">
+        <columns>
+          <TableColumn fx:id="dataColumn" editable="false" prefWidth="150.0" style="-fx-alignment: CENTER;;" text="Data" />
+            <TableColumn fx:id="importoColumn" editable="false" prefWidth="133.0" text="Importo" />
+            <TableColumn fx:id="categoriaColumn" editable="false" prefWidth="188.0" text="Categoria" />
+            <TableColumn fx:id="circuitoColumn" editable="false" prefWidth="152.0" text="Circuito" />
+            <TableColumn fx:id="descrizioneColumn" editable="false" prefWidth="514.0" sortable="false" text="Descrizione" />
+        </columns>
+      </TableView>
+   </children>
+</AnchorPane>
