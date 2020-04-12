@@ -4,6 +4,8 @@
 <?import javafx.scene.chart.PieChart?>
 <?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.RadioButton?>
+<?import javafx.scene.control.ToggleGroup?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
@@ -13,41 +15,72 @@
    <children>
       <VBox prefHeight="554.0" prefWidth="742.0">
          <children>
-            <PieChart fx:id="grafico" prefHeight="491.0" prefWidth="742.0" title="Spese per Categoria" />
-            <VBox prefHeight="108.0" prefWidth="732.0">
+            <HBox alignment="CENTER" prefHeight="175.0" prefWidth="742.0" spacing="20.0">
                <children>
-                  <HBox alignment="CENTER" prefHeight="45.0" prefWidth="732.0" spacing="70.0">
-                     <children>
-                        <Label prefHeight="35.0" prefWidth="149.0" text="Filtra Per Giorno">
-                           <font>
-                              <Font size="20.0" />
-                           </font>
-                        </Label>
-                        <Label text="Filtra per Settimana">
-                           <font>
-                              <Font size="20.0" />
-                           </font>
-                        </Label>
-                        <Label text="Filtra per Mese">
-                           <font>
-                              <Font size="20.0" />
-                           </font>
-                        </Label>
-                     </children>
-                  </HBox>
-                  <HBox alignment="CENTER" prefHeight="49.0" prefWidth="732.0" spacing="10.0">
-                     <children>
-                        <DatePicker fx:id="filtroGiorno" onAction="#filtraPerGiorno" promptText="Giorno..." />
-                        <DatePicker fx:id="filtroSettimana" onAction="#filtraPerSettimana" promptText="Settimana..." />
-                        <DatePicker fx:id="filtroMese" onAction="#filtraPerMese" promptText="Mese..." />
-                     </children>
-                  </HBox>
+                  <RadioButton fx:id="tutti" mnemonicParsing="false" onAction="#visualizza" selected="true" text="Tutti">
+                     <font>
+                        <Font size="20.0" />
+                     </font>
+                     <toggleGroup>
+                        <ToggleGroup fx:id="filtro" />
+                     </toggleGroup>
+                  </RadioButton>
+                  <RadioButton fx:id="contanti" mnemonicParsing="false" onAction="#visualizza" text="Contanti" toggleGroup="$filtro">
+                     <font>
+                        <Font size="20.0" />
+                     </font>
+                  </RadioButton>
+                  <RadioButton fx:id="bancomat" mnemonicParsing="false" onAction="#visualizza" text="Bancomat" toggleGroup="$filtro">
+                     <font>
+                        <Font size="20.0" />
+                     </font>
+                  </RadioButton>
+                  <RadioButton fx:id="carta" mnemonicParsing="false" onAction="#visualizza" text="Carta" toggleGroup="$filtro">
+                     <font>
+                        <Font size="20.0" />
+                     </font>
+                  </RadioButton>
                </children>
+            </HBox>
+            <VBox prefHeight="624.0" prefWidth="792.0">
+               <children>
+                  <PieChart fx:id="grafico" prefHeight="457.0" prefWidth="732.0" title="Spese per Categoria" />
+                  <VBox prefHeight="108.0" prefWidth="732.0">
+                     <children>
+                        <HBox alignment="CENTER" prefHeight="45.0" prefWidth="732.0" spacing="70.0">
+                           <children>
+                              <Label prefHeight="35.0" prefWidth="149.0" text="Filtra Per Giorno">
+                                 <font>
+                                    <Font size="20.0" />
+                                 </font>
+                              </Label>
+                              <Label text="Filtra per Settimana">
+                                 <font>
+                                    <Font size="20.0" />
+                                 </font>
+                              </Label>
+                              <Label text="Filtra per Mese">
+                                 <font>
+                                    <Font size="20.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                        </HBox>
+                        <HBox alignment="CENTER" prefHeight="57.0" prefWidth="732.0" spacing="10.0">
+                           <children>
+                              <DatePicker fx:id="filtroGiorno" onAction="#filtraPerGiorno" promptText="Giorno..." />
+                              <DatePicker fx:id="filtroSettimana" onAction="#filtraPerSettimana" promptText="Settimana..." />
+                              <DatePicker fx:id="filtroMese" onAction="#filtraPerMese" promptText="Mese..." />
+                           </children>
+                        </HBox>
+                     </children>
+                  </VBox>
+               </children>
+               <padding>
+                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+               </padding>
             </VBox>
          </children>
-         <padding>
-            <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-         </padding>
       </VBox>
    </children>
 </AnchorPane>
