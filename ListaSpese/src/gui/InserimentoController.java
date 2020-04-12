@@ -86,6 +86,15 @@ public class InserimentoController implements Initializable{
 		Stage s = (Stage)n.getScene().getWindow();
 		s.close();
 	}
+	
+	public void entrata(ActionEvent e) {
+		categoria.getSelectionModel().select(Categoria.ENTRATA);
+	}
+	
+	public void uscita(ActionEvent e) {
+		if(categoria.getSelectionModel().getSelectedItem().equals(Categoria.ENTRATA))
+			categoria.getSelectionModel().clearSelection();
+	}
 
 	private boolean check() {
 		try {

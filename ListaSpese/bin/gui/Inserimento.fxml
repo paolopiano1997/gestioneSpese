@@ -24,7 +24,7 @@
                </font></Label>
             <HBox alignment="CENTER" prefHeight="48.0" prefWidth="581.0" spacing="20.0">
                <children>
-                  <RadioButton fx:id="entrata" mnemonicParsing="false" prefHeight="34.0" prefWidth="117.0" text="Entrata">
+                  <RadioButton fx:id="entrata" mnemonicParsing="false" onAction="#entrata" prefHeight="34.0" prefWidth="117.0" text="Entrata">
                      <font>
                         <Font size="23.0" />
                      </font>
@@ -32,7 +32,7 @@
                         <ToggleGroup fx:id="entraEsce" />
                      </toggleGroup>
                   </RadioButton>
-                  <RadioButton fx:id="uscita" mnemonicParsing="false" prefHeight="34.0" prefWidth="121.0" selected="true" text="Uscita" toggleGroup="$entraEsce">
+                  <RadioButton fx:id="uscita" mnemonicParsing="false" onAction="#uscita" prefHeight="34.0" prefWidth="121.0" selected="true" text="Uscita" toggleGroup="$entraEsce">
                      <font>
                         <Font size="23.0" />
                      </font>
