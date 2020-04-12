@@ -1,6 +1,5 @@
 package gui;
 
-//import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.text.DecimalFormat;
@@ -8,7 +7,6 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Collections;
 import java.util.List;
-import java.util.Optional;
 import java.util.ResourceBundle;
 
 import controller.Controller;
@@ -38,7 +36,6 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
-import model.Categoria;
 import model.Circuito;
 import model.Movimenti;
 import model.Movimento;
@@ -47,6 +44,7 @@ import model.SaldoIniziale;
 
 public class SpeseController implements Initializable{
 	public static Controller controller;
+	public static MovimentoProperty mp;
 	private double xOffset = 0;
 	private double yOffset = 0;
 	
@@ -101,7 +99,7 @@ public class SpeseController implements Initializable{
 	private DatePicker filtraPerGiorno;
 	
 	@FXML
-	private Button elimina;
+	private Button modifica;
 	
 	@FXML
 	private Button inserisci;
@@ -122,12 +120,12 @@ public class SpeseController implements Initializable{
 		controller = new MovimentiDBController(dbUri,fileOp);
 		
 		initializeUsciteTable();
-		elimina.setDisable(true);
+		modifica.setDisable(true);
 		speseTable.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
 		    if (newSelection != null)
-		        elimina.setDisable(false);
+		        modifica.setDisable(false);
 		    else
-		    	elimina.setDisable(true);
+		    	modifica.setDisable(true);
 		});
 		filtraPerGiorno.valueProperty().addListener((ov, oldValue, newValue) -> {
             if(newValue!=null)
@@ -269,18 +267,39 @@ public class SpeseController implements Initializable{
 		return res;
 	}
 	
-	public void eliminaMovimento(ActionEvent e) {
-		MovimentoProperty newSelection = speseTable.getSelectionModel().getSelectedItem();
-    	Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-		alert.setTitle("Eliminazione");
-		alert.setHeaderText("Stai per eliminare un movimento");
-		alert.setContentText("Vuoi continuare con l'eliminazione o cancellare?");
-		Optional<ButtonType> option = alert.showAndWait();
-		if(option.get().equals(ButtonType.OK)){
-	        controller.eliminaMovimento(new Movimento(newSelection.getId(),Categoria.valueOf(newSelection.getCategoria()),newSelection.getImporto(),LocalDate.parse(newSelection.getData(),DateTimeFormatter.ofPattern("dd/MM/yyyy")),
-	        		Circuito.valueOf(newSelection.getCircuito()),newSelection.getDescrizione()));
-	        visualizzaTutti(e);
-	    }
+	public void modificaMovimento(ActionEvent e) {
+		mp = speseTable.getSelectionModel().getSelectedItem();
+		Parent root = null;
+		try {
+			root = FXMLLoader.load(getClass().getResource("Modifica.fxml"));
+		} catch (IOException e1) {
+			e1.printStackTrace();
+			error("Errore caricamento modifica");
+			return;
+		}
+		Scene scene = new Scene(root);
+		Stage stage = new Stage();
+		stage.getIcons().add(new Image("file:Spese.png"));
+		stage.initStyle(StageStyle.UNDECORATED);
+		stage.setResizable(false);
+		root.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                xOffset = event.getSceneX();
+                yOffset = event.getSceneY();
+            }
+        });
+        root.setOnMouseDragged(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                stage.setX(event.getScreenX() - xOffset);
+                stage.setY(event.getScreenY() - yOffset);
+            }
+        });
+		stage.setScene(scene);
+		stage.showAndWait();
+		aggiornaAttuale(e);
+		visualizzaTutti(e);
 	}
 	
 	public void inserisciMovimento(ActionEvent e) {
@@ -313,6 +332,7 @@ public class SpeseController implements Initializable{
         });
 		stage.setScene(scene);
 		stage.showAndWait();
+		aggiornaAttuale(e);
 		visualizzaTutti(e);
 	}
 	
