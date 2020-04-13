@@ -188,6 +188,58 @@ public class MovimentiDBController extends PersistenceController implements Cont
 	}
 	
 	@Override
+	public Movimenti getMovimentiByCategoria(Categoria c) {
+		try {
+		List<Movimento> result = new ArrayList<Movimento>();
+		Connection db = getConnection();
+		Statement stmt  = db.createStatement();
+		String sql = "SELECT * FROM Movimento where categoria='" + c.name() + "'";
+		ResultSet rs = stmt.executeQuery(sql);
+		while (rs.next()) {
+            	result.add(new Movimento(rs.getLong("id"),
+            			Categoria.valueOf(rs.getString("categoria")),
+            			rs.getFloat("Importo"),
+            			LocalDate.parse(rs.getString("Data"), DateTimeFormatter.ofPattern("dd/MM/yyyy")),
+            			Circuito.valueOf(rs.getString("Circuito")),
+            			rs.getString("Descrizione")
+            			)); 
+        }
+		db.close();
+		this.movimenti = new Movimenti(result);
+		return movimenti;
+		}catch(SQLException e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+	
+	@Override
+	public Movimenti getMovimentiByCircuito(Circuito c) {
+		try {
+		List<Movimento> result = new ArrayList<Movimento>();
+		Connection db = getConnection();
+		Statement stmt  = db.createStatement();
+		String sql = "SELECT * FROM Movimento where circuito='" + c.name() + "'";
+		ResultSet rs = stmt.executeQuery(sql);
+		while (rs.next()) {
+            	result.add(new Movimento(rs.getLong("id"),
+            			Categoria.valueOf(rs.getString("categoria")),
+            			rs.getFloat("Importo"),
+            			LocalDate.parse(rs.getString("Data"), DateTimeFormatter.ofPattern("dd/MM/yyyy")),
+            			Circuito.valueOf(rs.getString("Circuito")),
+            			rs.getString("Descrizione")
+            			)); 
+        }
+		db.close();
+		this.movimenti = new Movimenti(result);
+		return movimenti;
+		}catch(SQLException e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+	
+	@Override
 	public boolean putMovimento(Movimento m) {
 		try {
 			return inserisciMovimento(m);

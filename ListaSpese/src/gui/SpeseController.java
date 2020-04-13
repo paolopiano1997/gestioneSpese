@@ -24,6 +24,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
@@ -36,6 +37,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+import model.Categoria;
 import model.Circuito;
 import model.Movimenti;
 import model.Movimento;
@@ -67,6 +69,12 @@ public class SpeseController implements Initializable{
 	
 	@FXML
 	private DatePicker saldoAtDay;
+	
+	@FXML
+	private ComboBox<Categoria> categoria;
+	
+	@FXML
+	private ComboBox<Circuito> circuito;
 	
 	@FXML
 	private Label saldoAtDayLabel;
@@ -134,7 +142,7 @@ public class SpeseController implements Initializable{
 		filtraPerSettimana.valueProperty().addListener((ov,oldValue,newValue) ->{
 			if(newValue!=null)
 				filtraPerSettimana(newValue);
-		});
+		}); 
 		filtraPerMese.valueProperty().addListener((ov,oldValue,newValue)->{
 			if(newValue!=null)
 				filtraPerMese(newValue);
@@ -155,6 +163,8 @@ public class SpeseController implements Initializable{
 			data = si.getData().format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
 		}
 		saldoInizialeAttuale.setText(circuito() + " " + importo + "€ " + data);
+		circuito.setItems(FXCollections.observableArrayList(Circuito.values()));
+		categoria.setItems(FXCollections.observableArrayList(Categoria.values()));
 	}
 	
 	
@@ -359,6 +369,30 @@ public class SpeseController implements Initializable{
 			saldoInizialeAttuale.setText(circuito() + " " + si.getImporto() + "€ " + si.getData().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")));
 		else
 			saldoInizialeAttuale.setText(circuito() + " 0 €");
+	}
+	
+	public void filtraCategoria(ActionEvent e) {
+		speseTable.setItems(getItemsCategoria(categoria.getValue()));
+	}
+	
+	public void filtraCircuito(ActionEvent e) {
+		speseTable.setItems(getItemsCircuito(circuito.getValue()));
+	}
+	
+	private ObservableList<MovimentoProperty> getItemsCategoria(Categoria c) {
+		ObservableList<MovimentoProperty> res = FXCollections.observableArrayList();
+		for(Movimento m : controller.getMovimentiByCategoria(c).getMovimenti()) {
+			res.add(new MovimentoProperty(m.getId(),m.getCategoria().name(),m.getImporto(),m.getData(),m.getCircuito().name(),m.getDescrizione()));
+		}
+		return res;
+	}
+	
+	private ObservableList<MovimentoProperty> getItemsCircuito(Circuito c) {
+		ObservableList<MovimentoProperty> res = FXCollections.observableArrayList();
+		for(Movimento m : controller.getMovimentiByCircuito(c).getMovimenti()) {
+			res.add(new MovimentoProperty(m.getId(),m.getCategoria().name(),m.getImporto(),m.getData(),m.getCircuito().name(),m.getDescrizione()));
+		}
+		return res;
 	}
 
 	private void verifica(Label saldoLabel, float saldo) {

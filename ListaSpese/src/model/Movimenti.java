@@ -82,4 +82,22 @@ public  class Movimenti {
 		}
 		return res;
 	}
+	
+	public List<Movimento> getMovimentiByCategoria(Categoria c){
+		List<Movimento> res = new ArrayList<Movimento>();
+		for(Movimento u : movimenti) {
+			if(u.getCategoria().equals(c))
+				res.add(u);
+		}
+		return res;
+	}
+	
+	public List<Movimento> getMovimentiByCircuito(Circuito c){
+		List<Movimento> res = new ArrayList<Movimento>();
+		for(Movimento u : movimenti) {
+			if(u.getCircuito().equals(c))
+				res.add(u);
+		}
+		return res;
+	}
 }

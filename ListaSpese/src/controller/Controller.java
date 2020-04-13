@@ -2,6 +2,7 @@ package controller;
 
 import java.time.LocalDate;
 
+import model.Categoria;
 import model.Circuito;
 import model.Movimenti;
 import model.Movimento;
@@ -28,5 +29,9 @@ public interface Controller {
 	public Movimenti getMovimentiByMonth(LocalDate day);
 	
 	public Movimenti getMovimentiBetweenTwoDays(LocalDate first, LocalDate second);
+	
+	public Movimenti getMovimentiByCategoria(Categoria c);
+	
+	public Movimenti getMovimentiByCircuito(Circuito c);
 	
 }
